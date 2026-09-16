@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Dashboard - Restaurant Management</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://unpkg.com/alpinejs" defer></script>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+  <script src="../config.js"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+
+  <div class="flex h-screen overflow-hidden">
+    <!-- Sidebar -->
+    <aside class="w-64 bg-white shadow-lg p-6 space-y-6">
+  <div class="text-2xl font-bold text-yellow-500 mb-4">E2 Admin</div>
+  <nav class="space-y-2">
+    <button onclick="toggleSection('dashboard-section')" class="w-full text-left px-4 py-2 bg-gray-100 hover:bg-yellow-100 rounded">
+      Dashboard
+    </button>
+
+    <!-- Manage Dropdown -->
+    <div x-data="{ open: false }" class="relative">
+      <button @click="open = !open" class="w-full text-left px-4 py-2 bg-gray-100 hover:bg-yellow-100 rounded flex justify-between items-center">
+        Manage Home Sections
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transform transition-transform" :class="{ 'rotate-180': open }" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+
+      <div x-show="open" class="mt-2 ml-4 space-y-1" x-cloak>
+        <button onclick="toggleSection('featured-section')" class="w-full text-left px-3 py-1 bg-gray-50 hover:bg-yellow-50 rounded">Top Foods</button>
+        <button onclick="toggleSection('restaurant-section')" class="w-full text-left px-3 py-1 bg-gray-50 hover:bg-yellow-50 rounded">Popular Restaurant Items</button>
+        <button onclick="toggleSection('deal-section')" class="w-full text-left px-3 py-1 bg-gray-50 hover:bg-yellow-50 rounded">Hot Deal</button>
+        <button onclick="toggleSection('team-section')" class="w-full text-left px-3 py-1 bg-gray-50 hover:bg-yellow-50 rounded">Team Member</button>
+        <button onclick="toggleSection('blog-section')" class="w-full text-left px-3 py-1 bg-gray-50 hover:bg-yellow-50 rounded">Blog Post</button>
+      </div>
+    </div>
+    <div x-data="{ open: false }" class="relative">
+      <button @click="open = !open" class="w-full text-left px-4 py-2 bg-gray-100 hover:bg-yellow-100 rounded flex justify-between items-center">
+        Manage Food Items
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transform transition-transform" :class="{ 'rotate-180': open }" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+
+      <div x-show="open" class="mt-2 ml-4 space-y-1" x-cloak>
+        <button onclick="toggleSection('item-section')" class="w-full text-left px-4 py-2 bg-gray-100 hover:bg-yellow-100 rounded">
+          Add Food Item
+            </button>
+        <button onclick="toggleSection('category-section')" class="w-full text-left px-3 py-1 bg-gray-50 hover:bg-yellow-50 rounded">
+          Add New Category</button>
+      </div>
+    </div>
+
+    <!-- <button onclick="toggleSection('deals-section')"
+  class="w-full text-left px-4 py-2 bg-gray-100 hover:bg-yellow-100 rounded">
+  💰 Today's Deals
+</button> -->
+
+    
+    <!-- <div x-data="{ open: false }" class="relative">
+      <button @click="open = !open" class="w-full text-left px-4 py-2 bg-gray-100 hover:bg-yellow-100 rounded flex justify-between items-center">
+        Manage Admins
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transform transition-transform" :class="{ 'rotate-180': open }" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+
+      <div x-show="open" class="mt-2 ml-4 space-y-1" x-cloak>
+        <button onclick="toggleSection('admin-management-section')" class="w-full text-left px-4 py-2 bg-gray-100 hover:bg-yellow-100 rounded">
+          Add Admin
+            </button>
+      </div>
+      </div> -->
+
+      <div x-data="{ open: false }" class="relative mb-4">
+  <button @click="open = !open"
+    class="w-full text-left px-4 py-2 bg-gray-100 hover:bg-yellow-100 rounded flex justify-between items-center">
+    Order Section
+    <svg xmlns="http://www.w3.org/2000/svg"
+      class="h-4 w-4 transform transition-transform duration-300"
+      :class="{ 'rotate-180': open }"
+      fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+        d="M19 9l-7 7-7-7" />
+    </svg>
+  </button>
+
+  <div x-show="open" x-cloak class="mt-2 ml-4 space-y-2 transition-all duration-300">
+    <button onclick="toggleSection('dashboard-section')"
+      class="w-full text-left px-4 py-2 bg-gray-100 hover:bg-yellow-100 rounded">
+      📦 Today's Orders
+    </button>
+    <button onclick="toggleSection('all-orders-section')"
+      class="w-full text-left px-4 py-2 bg-gray-100 hover:bg-yellow-100 rounded">
+      📚 All Orders
+    </button>
+  </div>
+</div>
+  </nav>
+</aside>
+
+
+    <!-- Main Content -->
+<main class="flex-1 overflow-y-auto p-10 space-y-10">
+  <h1 class="text-3xl font-bold text-gray-800 text-center mb-10">Welcome to the Admin Dashboard</h1>
+
+  <section id="dashboard-section"><div id="dashboardOrdersSection"></div></section>
+<section id="all-orders-section" class="hidden"><div id="allOrdersContainer"></div></section>
+
+
+
+
+      <!-- Featureed Section -->
+      <section id="featured-section" class="hidden bg-white shadow rounded-lg p-6">
+        <h2 class="text-xl font-semibold mb-4 text-gray-700">Manage Top Foods</h2>
+
+        <!-- Featured Categories List -->
+        <div id="featured-list" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mb-8"></div>
+
+        <!-- Add/Edit Form -->
+        <h3 class="text-lg font-semibold text-gray-600 mb-2">Add or Edit Featured</h3>
+        <form id="featured-category-form" class="grid gap-4">
+
+          <input type="hidden" id="featured-id" name="id" />
+
+          <input
+          type="text" id="featured-name" name="name" placeholder="Featured Name" required class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-500"/>
+          <input type="text" id="featured-slug" name="slug" placeholder="Slug" required class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-500"/>
+          <input type="number" id="featured-count" name="productCount" placeholder="Product Count" required class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-500"/>
+          <input type="file" id="featured-image" name="image" accept="image/*" class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-500"/>
+          <button id="featured-submit-btn" type="submit" class="bg-yellow-500 text-white px-6 py-2 rounded hover:bg-yellow-600 transition">Add Featured</button>
+        </form>
+      </section>
+
+
+
+
+      <!-- Restaurant Section -->
+      <section id="restaurant-section" class="hidden bg-white shadow rounded-lg p-6">
+        <h2 class="text-xl font-semibold mb-4 text-gray-700">Manage Popular Restaurants Items</h2>
+
+        <!-- Restaurant List -->
+        <div id="restaurant-list" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mb-8"></div>
+
+        <!-- Form -->
+        <h3 class="text-lg font-semibold text-gray-600 mb-2">Add or Edit Restaurant</h3>
+        <form id="popular-restaurant-form" class="grid gap-4">
+          <input type="hidden" id="restaurant-id" name="id" />
+
+          <input type="text" id="restaurant-name" name="name" placeholder="Name" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-500" />
+          <input type="text" id="restaurant-slug" name="slug" placeholder="Slug" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-500" />
+          <input type="number" id="restaurant-rating" name="rating" placeholder="Rating (e.g. 4.5)" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-500" />
+          <input type="text" id="restaurant-hours" name="openingHours" placeholder="Opening Hours" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-500" />
+          <input type="text" id="restaurant-address" name="address" placeholder="Address" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-500" />
+          <input type="file" id="restaurant-image" name="image" accept="image/*" class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-500" />
+
+          <button type="submit" id="restaurant-submit-btn" class="bg-yellow-500 text-white px-6 py-2 rounded hover:bg-yellow-600 transition">Add Restaurant</button>
+        </form>
+      </section>
+
+
+      <!-- Hot Deals -->
+      <section id="deal-section" class="hidden bg-white shadow rounded-lg p-6">
+        <h2 class="text-xl font-semibold mb-4 text-gray-700">Manage Hot Deals</h2>
+
+        <!-- Deal List -->
+        <div id="deal-list" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mb-8"></div>
+
+        <!-- Add/Edit Form -->
+        <h3 class="text-lg font-semibold text-gray-600 mb-2">Add or Edit Deal</h3>
+        <form id="hot-deal-form" class="grid gap-4">
+          <input type="hidden" name="id" id="deal-id" />
+
+          <input type="text" name="name" id="deal-name" placeholder="Item Name" required class="input" />
+          <textarea name="description" id="deal-description" placeholder="Description" required class="input"></textarea>
+          <input type="number" name="price" id="deal-price" placeholder="Price" required class="input" />
+          <input type="number" name="originalPrice" id="deal-original-price" placeholder="Original Price" required class="input" />
+          <input type="file" name="image" id="deal-image" accept="image/*" class="input" />
+          
+          <button type="submit" class="bg-yellow-500 text-white px-6 py-2 rounded hover:bg-yellow-600 transition">
+            Add Deal
+          </button>
+        </form>
+      </section>
+
+      <!-- Input Style Shortcut -->
+      <style>
+        .input {
+          width: 100%;
+          border: 1px solid #d1d5db;
+          border-radius: 0.375rem;
+          padding: 0.5rem 0.75rem;
+          font-size: 0.875rem;
+          outline: none;
+        }
+        .input:focus {
+          border-color: #facc15;
+          box-shadow: 0 0 0 2px #fef08a;
+        }
+      </style>
+
+
+      <!-- For Team Members -->
+      <section id="team-section" class="hidden bg-white shadow rounded-lg p-6">
+        <h2 class="text-xl font-semibold mb-4 text-gray-700">Manage Team Members</h2>
+
+        <!-- List -->
+        <div id="team-list" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mb-6"></div>
+
+        <!-- Form -->
+        <h3 class="text-lg font-semibold text-gray-600 mb-2">Add or Edit Member</h3>
+        <form id="team-form" class="grid gap-4">
+          <input type="hidden" name="id" id="team-id" />
+          <input type="text" name="name" id="team-name" placeholder="Full Name" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-500" />
+          <input type="text" name="role" id="team-role" placeholder="Role (e.g. Chef, Manager)" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-500" />
+          <input type="file" name="image" id="team-image" accept="image/*" class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-500" />
+          <button type="submit" id="team-submit-btn" class="bg-yellow-500 text-white px-6 py-2 rounded hover:bg-yellow-600 transition">Add Member</button>
+        </form>
+      </section>
+
+
+      <!-- Blog Section -->
+       <section id="blog-section" class="hidden bg-white shadow rounded-lg p-6">
+        <h2 class="text-xl font-semibold mb-4 text-gray-700">Manage Blog Posts</h2>
+
+        <div id="blog-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-8"></div>
+
+        <h3 class="text-lg font-semibold text-gray-600 mb-2">Add or Edit Blog</h3>
+        <form id="blog-form" class="grid gap-4" enctype="multipart/form-data">
+          <input type="hidden" id="blog-id" name="id" />
+
+          <input type="text" name="title" id="blog-title" placeholder="Blog Title" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-500" />
+          <input type="text" name="category" id="blog-category" placeholder="Category (e.g. Appetizers)" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-500" />
+          <textarea name="description" id="blog-description" placeholder="Description" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-500"></textarea>
+          <input type="text" name="authorName" id="blog-author" placeholder="Author Name" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-500" />
+          
+          <label class="block font-medium mt-2">Cover Image</label>
+          <input type="file" name="image" id="blog-image" accept="image/*" class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-500" />
+          
+          <label class="block font-medium">Author Avatar</label>
+          <input type="file" name="avatar" id="blog-avatar" accept="image/*" class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-500" />
+
+          <button id="blog-submit-btn" type="submit" class="bg-yellow-500 text-white px-6 py-2 rounded hover:bg-yellow-600 transition">Publish Post</button>
+        </form>
+      </section>
+
+
+      <!-- New Food category -->
+      <section id="category-section" class="hidden bg-white shadow rounded-lg p-6">
+
+        <!-- Add/Edit Category Form -->
+          <h3 class="text-lg font-semibold text-gray-600 mb-2">Add or Edit Category</h3>
+          <form id="add-category-form" class="grid gap-4">
+            <input type="hidden" name="id" id="category-id" />
+
+            <input type="text" id="category-name" name="name" placeholder="Category Name" required
+                  class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-500" />
+
+            <input type="text" id="category-slug" name="slug" placeholder="Slug" required
+                  class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-500" />
+
+            <input type="file" id="category-image" name="image" accept="image/*"
+                  class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-500" />
+
+            <button type="submit" id="category-submit-btn"
+                    class="bg-yellow-500 text-white px-4 py-2 rounded text-sm hover:bg-yellow-600 transition">
+              Add Category
+            </button>
+          </form>
+          <h2 class="text-xl font-semibold mb-4 text-gray-700">Manage Categories</h2>
+          <!-- Existing Categories -->
+          <div id="category-list" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mb-8">
+          </div>
+      </section>
+
+
+      <!-- New Food Item -->
+      <section id="item-section" class="hidden bg-white shadow rounded-lg p-6">
+  <h2 class="text-xl font-semibold mb-4 text-gray-700">Add Food Item</h2>
+
+  <!-- Food Item Form -->
+  <form id="food-item-form" class="grid gap-4" enctype="multipart/form-data">
+    <input type="hidden" name="id" id="item-id" />
+
+    <input
+      type="text"
+      name="name"
+      id="item-name"
+      placeholder="Item Name"
+      required
+      class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-500"
+    />
+
+    <select name="category" id="item-category" required class="...">
+      <option value="">Select Category</option>
+      <!-- Options will be populated dynamically -->
+    </select>
+    <input
+      type="number"
+      name="price"
+      id="item-price"
+      placeholder="Price"
+      required
+      class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-500"
+    />
+
+    <input
+      type="file"
+      name="image"
+      id="item-image"
+      accept="image/*"
+      class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-500"
+    />
+
+    <button
+      type="submit"
+      class="bg-yellow-500 text-white px-6 py-2 rounded hover:bg-yellow-600 transition"
+    >
+      Save Item
+    </button>
+  </form>
+
+  <!-- List of Food Items -->
+  <div id="food-item-list" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mt-6"></div>
+</section>
+
+<!-- Admin Management--->
+<!-- <section id="admin-management-section" class="hidden bg-white shadow rounded-lg p-6">
+  <h2 class="text-xl font-semibold mb-4 text-gray-700">Manage Admins</h2>
+
+  Add/Edit Admin Form
+  <form id="admin-form" class="grid gap-4 mb-6">
+    <input type="hidden" name="id" id="admin-id" />
+
+    <input
+      type="text"
+      id="admin-username"
+      placeholder="Username"
+      required
+      class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-500"
+    />
+
+    <input
+      type="password"
+      id="admin-password"
+      placeholder="Password"
+      required
+      class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-500"
+    />
+
+    <select
+      id="admin-role"
+      required
+      class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-500"
+    >
+      <option value="">Select Role</option>
+      <option value="admin">Admin</option>
+      <option value="superadmin">Superadmin</option>
+    </select>
+
+    <button
+      type="submit"
+      class="bg-yellow-500 text-white px-6 py-2 rounded hover:bg-yellow-600 transition"
+    >
+      Save Admin
+    </button>
+  </form>
+
+  Admin List
+  <div id="admin-list" class="overflow-x-auto">
+    <table class="min-w-full table-auto border">
+      <thead class="bg-gray-100 text-gray-600">
+        <tr>
+          <th class="p-2 border">Username</th>
+          <th class="p-2 border">Role</th>
+          <th class="p-2 border">Actions</th>
+        </tr>
+      </thead>
+      <tbody id="admin-table-body"></tbody>
+    </table>
+  </div>
+</section> -->
+    <!-- <section id="deals-section" class="hidden p-6 space-y-4">
+  <h2 class="text-2xl font-bold mb-4">Manage Today's Deals</h2>
+
+  <form id="deals-form" enctype="multipart/form-data" class="grid gap-4 md:grid-cols-2">
+    <input type="hidden" id="deal-id" />
+    <input type="text" id="deal-name" placeholder="Deal Name" required />
+    <input type="number" id="deal-price" placeholder="Price" required />
+    <textarea id="deal-description" placeholder="Description"></textarea>
+    <input type="file" id="deal-image" accept="image/*" />
+    <button type="submit" class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 transition">Add / Update Deal</button>
+  </form>
+
+  <div id="deal-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-6"></div>
+</section> -->
+
+
+    </main>
+  </div>
+
+    <script src="admin-script.js"></script>
+
+  <!-- <script>
+    const token = localStorage.getItem('token');
+      if (!token) {
+        window.location.href = 'login.html';
+      }
+  // </script> -->
+</body>
+</html>
