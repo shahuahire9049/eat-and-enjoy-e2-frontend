@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Today's Specials | E2 Online Food Delivery</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="config.js"></script>
+</head>
+
+<body class="bg-gray-50 text-gray-800 font-sans">
+
+  <!-- Header -->
+  <header class="bg-white shadow sticky top-0 z-50">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <a href="index.html">
+        <img src="assets/logo.jpg" alt="Logo" class="h-10 w-auto rounded-md shadow" />
+      </a>
+      <nav class="space-x-6 text-sm font-medium">
+        <a href="#" class="hover:text-yellow-600">Home</a>
+        <a href="#" class="hover:text-yellow-600">Registration</a>
+        <a href="#" class="hover:text-yellow-600">Contact Us</a>
+        <a href="#" class="hover:text-yellow-600">About Us</a>
+      </nav>
+      <div class="flex items-center space-x-3">
+        <select class="border rounded px-3 py-1 text-sm">
+          <option>Select Location</option>
+        </select>
+        <button class="bg-yellow-400 hover:bg-yellow-500 px-3 py-1.5 rounded text-sm font-semibold">Restaurant
+          Search</button>
+        <div class="flex items-center space-x-2">
+          <img src="assets/profile.jpg" alt="Profile" class="w-9 h-9 rounded-full border shadow" />
+          <span class="text-sm font-medium">Profile</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-r from-orange-400 to-pink-500 text-white p-6 rounded-b-xl">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold">Today's Specials</h2>
+      <p class="text-sm">Handpicked dishes just for you</p>
+    </div>
+  </section>
+
+  <!-- Specials Section -->
+  <section class="container mx-auto px-4 py-10">
+    <h2 class="text-2xl font-bold mb-6">Special Menu</h2>
+    <div class="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+      <!-- Special items will be dynamically rendered here -->
+    </div>
+  </section>
+
+  <!-- Order Summary -->
+  <section class="container mx-auto px-4 py-8">
+    <div class="bg-white rounded-xl shadow p-6">
+      <h3 class="text-lg font-semibold mb-4">Your Order</h3>
+      <ul id="cartItemsList" class="text-sm text-gray-700 space-y-2">
+        <!-- Cart items here -->
+      </ul>
+      <div class="mt-4 text-right font-bold text-gray-800">
+        Total: ₹<span id="totalAmount">0</span>
+      </div>
+      <div class="mt-4 text-right">
+        <a href="payment.html"
+          class="bg-yellow-400 hover:bg-yellow-500 text-black px-4 py-2 rounded font-semibold">Checkout</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="text-center text-sm text-gray-500 py-4">
+    © 2025 E2 Online Food Delivery
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    let cart = [];
+
+    function addToCart(item) {
+      const existing = cart.find(i => i._id === item._id);
+      if (existing) {
+        existing.quantity++;
+      } else {
+        cart.push({ ...item, quantity: 1 });
+      }
+      renderCart();
+    }
+
+    function renderCart() {
+      const list = document.getElementById("cartItemsList");
+      const totalSpan = document.getElementById("totalAmount");
+      list.innerHTML = "";
+      let total = 0;
+      cart.forEach(item => {
+        const li = document.createElement("li");
+        li.textContent = `${item.name} x${item.quantity} - ₹${item.price * item.quantity}`;
+        list.appendChild(li);
+        total += item.price * item.quantity;
+      });
+      totalSpan.textContent = total;
+    }
+
+    async function fetchSpecials() {
+      try {
+        const res = await fetch("https://eat-enjoy-backend.onrender.com/api/specials");
+        const specials = await res.json();
+
+        const container = document.querySelector(".grid");
+        container.innerHTML = "";
+
+        specials.forEach(item => {
+          const div = document.createElement("div");
+          div.className = "menu-item bg-gray-50 rounded-xl p-4 flex items-center space-x-4 cursor-pointer border border-gray-200 hover:border-orange-300";
+          div.innerHTML = `
+            <div class="w-24 h-24 rounded-lg overflow-hidden">
+              <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover" />
+            </div>
+            <div class="flex-1">
+              <h3 class="font-semibold text-lg">${item.name}</h3>
+              <p class="text-gray-600 text-sm">${item.description}</p>
+              <p class="text-orange-500 font-medium mt-1">₹${item.price}</p>
+            </div>
+            <button class="add-to-cart-btn bg-orange-500 text-white p-2 rounded-full hover:bg-orange-600 transition">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+              </svg>
+            </button>`;
+          div.querySelector(".add-to-cart-btn").addEventListener("click", () => addToCart(item));
+          container.appendChild(div);
+        });
+      } catch (err) {
+        console.error("Failed to load specials:", err);
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      fetchSpecials();
+    });
+  </script>
+
+</body>
+
+</html>

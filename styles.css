@@ -1,0 +1,95 @@
+/* Custom fonts and overrides */
+    .font-logo {
+      font-family: "Brush Script MT", cursive;
+    }
+
+    /* Scroll to top button style */
+    #scrollUpBtn {
+      transition: background-color 0.3s ease;
+    }
+
+    #scrollUpBtn:hover {
+      background-color: #facc15;
+      color: black;
+    }
+
+    /* Custom scrollbar for vendor list - horizontal */
+    .scrollbar-hidden::-webkit-scrollbar {
+      display: none;
+    }
+
+    .scrollbar-hidden {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    /* Star rating (inline SVG) color */
+    .star-fill {
+      fill: #fbbf24;
+    }
+
+    /* Overlay for vendor open/close status */
+    .open-status, .close-status {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.15rem 0.375rem;
+      border-radius: 9999px;
+      color: white;
+      gap: 0.25rem;
+    }
+
+    .open-status {
+      background-color: #22c55e; /* green */
+    }
+
+    .close-status {
+      background-color: #ef4444; /* red */
+    }
+
+    /* Social avatars cluster container styling */
+    .avatar-cluster {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+
+/* Contact Us Page Styling */
+
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInLeft {
+  0% { opacity: 0; transform: translateX(-30px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInRight {
+  0% { opacity: 0; transform: translateX(30px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.animate-slide-in-left {
+  animation: slideInLeft 0.8s ease-out forwards;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.8s ease-out forwards;
+}
+
+/* Hide scrollbars for all browsers */
+.scrollbar-hide {
+  scrollbar-width: none;     /* Firefox */
+  -ms-overflow-style: none;  /* IE and Edge */
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;             /* Chrome, Safari, Opera */
+}

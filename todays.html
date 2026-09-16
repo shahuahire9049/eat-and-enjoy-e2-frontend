@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Restaurant Order</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+        }
+        
+        .menu-item {
+            transition: all 0.3s ease;
+        }
+        
+        .menu-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .order-confirmation {
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .print-btn {
+            transition: all 0.2s ease;
+        }
+        
+        .print-btn:hover {
+            transform: scale(1.05);
+        }
+    </style>
+  <script src="config.js"></script>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+    <div class="max-w-4xl w-full bg-white rounded-2xl shadow-xl overflow-hidden">
+        <!-- Restaurant Header -->
+        <div class="bg-gradient-to-r from-orange-500 to-pink-500 p-6 text-white">
+            <div class="flex justify-between items-center">
+                <div>
+                    <h1 class="text-3xl font-bold">Savory Bites</h1>
+                    <p class="text-orange-100">Fine dining experience</p>
+                </div>
+                <div class="w-16 h-16 rounded-full bg-white flex items-center justify-center shadow-lg">
+                    <img src="https://placehold.co/64x64" alt="Savory Bites restaurant logo - a minimalist fork and knife design with orange and pink accents" class="w-12 h-12 object-contain" />
+                </div>
+            </div>
+        </div>
+        
+        <!-- Menu Section -->
+        <div class="p-6">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-6">Today's Specials</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Menu Item 1 -->
+                <div class="menu-item bg-gray-50 rounded-xl p-4 flex items-center space-x-4 cursor-pointer border border-gray-200 hover:border-orange-300">
+                    <div class="w-24 h-24 rounded-lg overflow-hidden">
+                        <img src="https://placehold.co/200x200" alt="Grilled Salmon with lemon butter sauce and asparagus on a white plate" class="w-full h-full object-cover" />
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="font-semibold text-lg">Grilled Salmon</h3>
+                        <p class="text-gray-600 text-sm">With lemon butter sauce</p>
+                        <p class="text-orange-500 font-medium mt-1">$18.99</p>
+                    </div>
+                    <button class="add-to-cart-btn bg-orange-500 text-white p-2 rounded-full hover:bg-orange-600 transition">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                </div>
+                
+                <!-- Menu Item 2 -->
+                <div class="menu-item bg-gray-50 rounded-xl p-4 flex items-center space-x-4 cursor-pointer border border-gray-200 hover:border-orange-300">
+                    <div class="w-24 h-24 rounded-lg overflow-hidden">
+                        <img src="https://placehold.co/200x200" alt="Margherita Pizza with fresh basil leaves and melted mozzarella cheese" class="w-full h-full object-cover" />
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="font-semibold text-lg">Margherita Pizza</h3>
+                        <p class="text-gray-600 text-sm">Fresh basil & mozzarella</p>
+                        <p class="text-orange-500 font-medium mt-1">$14.99</p>
+                    </div>
+                    <button class="add-to-cart-btn bg-orange-500 text-white p-2 rounded-full hover:bg-orange-600 transition">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                </div>
+                
+                <!-- Menu Item 3 -->
+                <div class="menu-item bg-gray-50 rounded-xl p-4 flex items-center space-x-4 cursor-pointer border border-gray-200 hover:border-orange-300">
+                    <div class="w-24 h-24 rounded-lg overflow-hidden">
+                        <img src="https://placehold.co/200x200" alt="Chocolate Lava Cake with vanilla ice cream and raspberry drizzle" class="w-full h-full object-cover" />
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="font-semibold text-lg">Chocolate Lava Cake</h3>
+                        <p class="text-gray-600 text-sm">With vanilla ice cream</p>
+                        <p class="text-orange-500 font-medium mt-1">$8.99</p>
+                    </div>
+                    <button class="add-to-cart-btn bg-orange-500 text-white p-2 rounded-full hover:bg-orange-600 transition">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                </div>
+                
+                <!-- Menu Item 4 -->
+                <div class="menu-item bg-gray-50 rounded-xl p-4 flex items-center space-x-4 cursor-pointer border border-gray-200 hover:border-orange-300">
+                    <div class="w-24 h-24 rounded-lg overflow-hidden">
+                        <img src="https://placehold.co/200x200" alt="Caesar Salad with crispy croutons and parmesan cheese shavings" class="w-full h-full object-cover" />
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="font-semibold text-lg">Caesar Salad</h3>
+                        <p class="text-gray-600 text-sm">With homemade dressing</p>
+                        <p class="text-orange-500 font-medium mt-1">$10.99</p>
+                    </div>
+                    <button class="add-to-cart-btn bg-orange-500 text-white p-2 rounded-full hover:bg-orange-600 transition">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Order Summary -->
+            <div class="mt-8 bg-gray-50 rounded-xl p-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">Your Order</h3>
+                
+                <div id="order-items" class="space-y-3 mb-4">
+                    <!-- Items will be added here dynamically -->
+                    <div class="text-gray-500 italic">No items selected yet</div>
+                </div>
+                
+                <div class="border-t border-gray-200 pt-4">
+                    <div class="flex justify-between mb-2">
+                        <span class="text-gray-600">Subtotal</span>
+                        <span id="subtotal" class="font-medium">$0.00</span>
+                    </div>
+                    <div class="flex justify-between mb-2">
+                        <span class="text-gray-600">Tax (10%)</span>
+                        <span id="tax" class="font-medium">$0.00</span>
+                    </div>
+                    <div class="flex justify-between text-lg font-semibold">
+                        <span>Total</span>
+                        <span id="total" class="text-orange-500">$0.00</span>
+                    </div>
+                </div>
+                
+                <button id="place-order-btn" class="w-full mt-6 bg-gradient-to-r from-orange-500 to-pink-500 text-white py-3 rounded-lg font-semibold shadow-md hover:shadow-lg transition-all">
+                    Place Order
+                </button>
+            </div>
+        </div>
+        
+        <!-- Order Confirmation Modal (hidden by default) -->
+        <div id="order-confirmation" class="order-confirmation fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 hidden">
+            <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full overflow-hidden">
+                <div class="bg-gradient-to-r from-green-500 to-teal-400 p-6 text-white text-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <h2 class="text-2xl font-bold">Order Placed!</h2>
+                </div>
+                
+                <div class="p-6">
+                    <p id="confirmation-message" class="text-gray-700 mb-6"></p>
+                    
+                    <div class="bg-gray-50 rounded-lg p-4 mb-6">
+                        <h3 class="font-semibold text-gray-800 mb-2">Order Details</h3>
+                        <div id="order-details" class="text-sm text-gray-600">
+                            <!-- Order details will be inserted here -->
+                        </div>
+                    </div>
+                    
+                    <div class="flex space-x-3">
+                        <button id="print-invoice-btn" class="print-btn flex-1 bg-blue-500 text-white py-2 px-4 rounded-lg font-medium hover:bg-blue-600 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+                            </svg>
+                            Print Invoice
+                        </button>
+                        <button id="close-confirmation-btn" class="print-btn flex-1 bg-gray-200 text-gray-800 py-2 px-4 rounded-lg font-medium hover:bg-gray-300">
+                            Close
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample menu data
+        const menuItems = [
+            { id: 1, name: "Grilled Salmon", description: "With lemon butter sauce", price: 18.99, image: "https://placehold.co/200x200" },
+            { id: 2, name: "Margherita Pizza", description: "Fresh basil & mozzarella", price: 14.99, image: "https://placehold.co/200x200" },
+            { id: 3, name: "Chocolate Lava Cake", description: "With vanilla ice cream", price: 8.99, image: "https://placehold.co/200x200" },
+            { id: 4, name: "Caesar Salad", description: "With homemade dressing", price: 10.99, image: "https://placehold.co/200x200" }
+        ];
+        
+        let cart = [];
+        let orderId = null;
+        
+        // Initialize event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add to cart buttons
+            document.querySelectorAll('.add-to-cart-btn').forEach((btn, index) => {
+                btn.addEventListener('click', () => addToCart(menuItems[index]));
+            });
+            
+            // Place order button
+            document.getElementById('place-order-btn').addEventListener('click', placeOrder);
+            
+            // Close confirmation button
+            document.getElementById('close-confirmation-btn').addEventListener('click', () => {
+                document.getElementById('order-confirmation').classList.add('hidden');
+            });
+            
+            // Print invoice button
+            document.getElementById('print-invoice-btn').addEventListener('click', printInvoice);
+        });
+        
+        // Add item to cart
+        function addToCart(item) {
+            const existingItem = cart.find(cartItem => cartItem.id === item.id);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    ...item,
+                    quantity: 1
+                });
+            }
+            
+            updateOrderSummary();
+        }
+        
+        // Update order summary UI
+        function updateOrderSummary() {
+            const orderItemsContainer = document.getElementById('order-items');
+            
+            if (cart.length === 0) {
+                orderItemsContainer.innerHTML = '<div class="text-gray-500 italic">No items selected yet</div>';
+                document.getElementById('subtotal').textContent = '$0.00';
+                document.getElementById('tax').textContent = '$0.00';
+                document.getElementById('total').textContent = '$0.00';
+                return;
+            }
+            
+            let itemsHTML = '';
+            let subtotal = 0;
+            
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                subtotal += itemTotal;
+                
+                itemsHTML += `
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <span class="font-medium">${item.name}</span>
+                            <span class="text-gray-500 text-sm ml-2">x${item.quantity}</span>
+                        </div>
+                        <span class="font-medium">$${itemTotal.toFixed(2)}</span>
+                    </div>
+                `;
+            });
+            
+            const tax = subtotal * 0.1;
+            const total = subtotal + tax;
+            
+            orderItemsContainer.innerHTML = itemsHTML;
+            document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
+            document.getElementById('tax').textContent = `$${tax.toFixed(2)}`;
+            document.getElementById('total').textContent = `$${total.toFixed(2)}`;
+        }
+        
+        // Place order function
+        function placeOrder() {
+            if (cart.length === 0) {
+                alert('Please add items to your cart before placing an order.');
+                return;
+            }
+            
+            // Generate a random order ID
+            orderId = 'ORD-' + Math.floor(Math.random() * 1000000).toString().padStart(6, '0');
+            
+            // Get user details (in a real app, this would come from a form)
+            const userDetails = {
+                name: "John Doe",
+                email: "john@example.com",
+                phone: "(123) 456-7890",
+                address: "123 Main St, Cityville"
+            };
+            
+            // Calculate totals
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const tax = subtotal * 0.1;
+            const total = subtotal + tax;
+            
+            // Build order details HTML
+            let orderDetailsHTML = `
+                <div class="mb-3">
+                    <div class="font-medium">Order ID: ${orderId}</div>
+                    <div class="text-xs text-gray-500">${new Date().toLocaleString()}</div>
+                </div>
+                
+                <div class="mb-3">
+                    <div class="font-medium">Customer:</div>
+                    <div>${userDetails.name}</div>
+                    <div>${userDetails.email}</div>
+                    <div>${userDetails.phone}</div>
+                    <div>${userDetails.address}</div>
+                </div>
+                
+                <div class="border-t border-gray-200 pt-2">
+                    <div class="font-medium mb-1">Items:</div>
+            `;
+            
+            cart.forEach(item => {
+                orderDetailsHTML += `
+                    <div class="flex justify-between text-sm">
+                        <span>${item.name} x${item.quantity}</span>
+                        <span>$${(item.price * item.quantity).toFixed(2)}</span>
+                    </div>
+                `;
+            });
+            
+            orderDetailsHTML += `
+                    <div class="border-t border-gray-200 mt-2 pt-2">
+                        <div class="flex justify-between">
+                            <span>Subtotal:</span>
+                            <span>$${subtotal.toFixed(2)}</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Tax (10%):</span>
+                            <span>$${tax.toFixed(2)}</span>
+                        </div>
+                        <div class="flex justify-between font-medium">
+                            <span>Total:</span>
+                            <span>$${total.toFixed(2)}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Update confirmation modal
+            document.getElementById('confirmation-message').innerHTML = `
+                Yayyy! Order placed successfully.<br>
+                Your order ID is <span class="font-semibold">${orderId}</span>.
+            `;
+            
+            document.getElementById('order-details').innerHTML = orderDetailsHTML;
+            
+            // Show confirmation modal
+            document.getElementById('order-confirmation').classList.remove('hidden');
+        }
+        
+        // Print invoice function
+        function printInvoice() {
+            const printContent = `
+                <html>
+                    <head>
+                        <title>Invoice - Order ${orderId}</title>
+                        <style>
+                            body { font-family: Arial, sans-serif; margin: 20px; }
+                            .header { text-align: center; margin-bottom: 20px; }
+                            .logo { font-size: 24px; font-weight: bold; color: #f97316; }
+                            .order-info { margin-bottom: 20px; }
+                            .customer-info { margin-bottom: 20px; }
+                            table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+                            th, td { padding: 8px; text-align: left; border-bottom: 1px solid #ddd; }
+                            .total-row { font-weight: bold; }
+                            .thank-you { text-align: center; margin-top: 30px; font-style: italic; }
+                        </style>
+                    </head>
+                    <body>
+                        <div class="header">
+                            <div class="logo">Savory Bites</div>
+                            <div>123 Restaurant Street, Foodville</div>
+                            <div>Phone: (555) 123-4567</div>
+                        </div>
+                        
+                        <div class="order-info">
+                            <h2>Invoice</h2>
+                            <div><strong>Order ID:</strong> ${orderId}</div>
+                            <div><strong>Date:</strong> ${new Date().toLocaleString()}</div>
+                        </div>
+                        
+                        <div class="customer-info">
+                            <h3>Customer Details</h3>
+                            <div>John Doe</div>
+                            <div>john@example.com</div>
+                            <div>(123) 456-7890</div>
+                            <div>123 Main St, Cityville</div>
+                        </div>
+                        
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Item</th>
+                                    <th>Qty</th>
+                                    <th>Price</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${cart.map(item => `
+                                    <tr>
+                                        <td>${item.name}</td>
+                                        <td>${item.quantity}</td>
+                                        <td>$${item.price.toFixed(2)}</td>
+                                        <td>$${(item.price * item.quantity).toFixed(2)}</td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="3" class="total-row">Subtotal</td>
+                                    <td class="total-row">$${cart.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2)}</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" class="total-row">Tax (10%)</td>
+                                    <td class="total-row">$${(cart.reduce((sum, item) => sum + (item.price * item.quantity), 0) * 0.1).toFixed(2)}</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" class="total-row">Total</td>
+                                    <td class="total-row">$${(cart.reduce((sum, item) => sum + (item.price * item.quantity), 0) * 1.1).toFixed(2)}</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                        
+                        <div class="thank-you">
+                            Thank you for dining with us!<br>
+                            We hope to see you again soon.
+                        </div>
+            `;
+            
+            const printWindow = window.open('', '_blank');
+            printWindow.document.open();
+            printWindow.document.write(printContent);
+            printWindow.document.close();
+            printWindow.focus();
+            printWindow.print();
+        }
+    </script>
+</body>
+</html>

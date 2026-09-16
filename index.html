@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>E&#178; - Online Food Delivery</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="script.js"></script>
+  <script src="config.js"></script>
+</head>
+
+<body class="bg-gray-50 text-gray-900 selection:bg-yellow-400 selection:text-black">
+
+  <!-- HEADER / NAV -->
+  <header class="sticky top-0 z-50 bg-white shadow-md">
+    <div class="container mx-auto flex flex-wrap items-center justify-between py-4 px-4 md:px-0">
+      <a href="index.html">
+        <img src="assets/logo.jpg" alt="Website Logo"
+          class="h-12 w-auto rounded-lg shadow-md" />
+      </a>
+
+      <nav class="hidden md:flex space-x-6 text-sm font-semibold">
+        <a href="index.html" class="hover:text-yellow-500 transition">Home</a>
+        <!-- <a href="todays-special.html" class="hover:text-yellow-500 transition">Today's Special</a> -->
+        <a href="contact-us.html" class="hover:text-yellow-500 transition">Contact Us</a>
+        <a href="about-us.html" class="hover:text-yellow-500 transition">About Us</a>
+      </nav>
+
+      <!-- <div class="flex items-center space-x-2">
+        <select aria-label="Select location" class="rounded border border-gray-300 text-sm px-3 py-1 focus:outline-yellow-400">
+          <option>Select Location</option>
+          <option>Location 1</option>
+          <option>Location 2</option>
+          <option>Location 3</option>
+        </select>
+        <button
+          class="bg-yellow-400 hover:bg-yellow-500 transition rounded px-4 py-2 text-sm font-bold text-black whitespace-nowrap"
+          type="button">Restaurant Search</button> -->
+
+      <!-- Profile / Login Dropdown (Click + Hover) -->
+        <div class="relative">
+        <button onclick="toggleProfileDropdown()" onmouseenter="showProfileDropdown()" onmouseleave="hideProfileDropdownDelayed()" class="flex items-center space-x-2 text-sm font-semibold focus:outline-none">
+            <img src="assets/user.png" alt="User" class="w-8 h-8 rounded-full border border-gray-300 shadow-sm">
+            <span class="hidden md:inline-block">Profile</span>
+            <svg class="w-4 h-4 transition-transform transform" id="profile-chevron" fill="none" stroke="currentColor" stroke-width="2"
+            viewBox="0 0 24 24">
+            <path d="M19 9l-7 7-7-7" />
+            </svg>
+        </button>
+
+        <!-- Dropdown Menu -->
+        <div id="profileDropdown"
+            class="absolute right-0 mt-2 w-40 bg-white border border-gray-200 rounded-lg shadow-lg py-2 z-50 opacity-0 pointer-events-none transform scale-95 transition-all duration-200"
+            onmouseenter="cancelHideDropdown()" onmouseleave="hideProfileDropdownDelayed()">
+            <a href="login.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-yellow-100">Login</a>
+            <a href="register.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-yellow-100">Register</a>
+        </div>
+        </div>
+    </div>
+  </div>
+</header>
+
+  <!-- HERO SECTION -->
+  <section  id="he-ro" aria-label="Hero section for Food ordering promotion"
+    class="relative bg-gradient-to-r from-yellow-200 to-yellow-50">
+    <div class="container mx-auto flex flex-col-reverse md:flex-row items-center gap-6 py-12 px-4 md:px-0">
+      <div class="max-w-2xl space-y-6">
+        <small class="flex items-center text-yellow-600 font-semibold text-sm gap-2 whitespace-nowrap">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M3 10h1l3 5m6 0h10l-2 3M3 16h.01M14 10v12M7 21h10M12 4v6m0 0h2m-2 0h-2"></path>
+          </svg>
+          Easy way to order your food
+        </small>
+        <h1
+          class="text-4xl md:text-5xl font-extrabold tracking-tight leading-tight max-w-xl text-black select-none">
+          Order Healthy And Fresh Food Any Time
+        </h1>
+        <p class="text-gray-700 max-w-lg leading-relaxed">Italian food makes people think of big family dinners. So you
+          may want to position your restaurant as a place to bring the whole family.</p>
+        <div class="relative max-w-md w-full mx-auto mb-6">
+  <form id="searchForm" class="flex space-x-3">
+    <input type="search" name="keyword" id="keyword" placeholder="Search category..."
+      class="flex-grow border border-gray-300 rounded-md px-8 py-3 focus:outline-yellow-400" />
+    <button type="submit"
+      class="bg-yellow-400 hover:bg-yellow-500 transition text-black font-semibold px-5 rounded-md flex items-center">
+      <i class="fas fa-search mr-2"></i> Search
+    </button>
+  </form>
+
+  <!-- Suggestions dropdown -->
+  <ul id="suggestions"
+    class="absolute top-full left-0 w-full bg-white shadow-lg rounded mt-1 z-20 hidden max-h-60 overflow-y-auto border border-gray-200"></ul>
+</div>
+        <div class="flex flex-wrap gap-4 mt-6" aria-label="Popular Restaurant Brands">
+          <button
+            class="border-2 border-yellow-400 bg-yellow-400 text-black rounded-md px-3 py-1 text-xs font-semibold select-none">Organic</button>
+          <button class="border-2 border-gray-300 rounded-md px-3 py-1 text-xs font-semibold select-none">TastyFood</button>
+          <button class="border-2 border-gray-300 rounded-md px-3 py-1 text-xs font-semibold select-none">FoodChef</button>
+          <button class="border-2 border-gray-300 rounded-md px-3 py-1 text-xs font-semibold select-none">Toni’s Hub</button>
+          <button class="border-2 border-gray-300 rounded-md px-3 py-1 text-xs font-semibold select-none">Masterchef</button>
+          <button class="border-2 border-gray-300 rounded-md px-3 py-1 text-xs font-semibold select-none">Fun Chicken</button>
+          <button class="border-2 border-gray-300 rounded-md px-3 py-1 text-xs font-semibold select-none">Chef Ganteng</button>
+        </div>
+      </div>
+
+      <div class="relative max-w-md md:max-w-xl flex-shrink-0">
+        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/79b49c1e-4143-4b2e-b6d6-d4733ad97438.png"
+          alt="Top view of a large pizza with sliced mushrooms, olives and cheese on a black background next to scattered fresh green basil leaves, shredded cheese and red chili peppers"
+          class="rounded-xl shadow-lg shadow-yellow-300/30" onerror="this.src='https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/d0197381-6ddb-4a20-9571-cfd8d3d8e3c7.png'" />
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Dynamic Food Items -->
+<section id="items-categories"class="bg-white py-12 px-4 md:px-8">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="text-2xl font-bold text-center mb-8 text-gray-800">What's on your mind?</h2>
+
+    <div class="relative">
+      <!-- Scroll buttons -->
+      <div class="flex justify-between items-center mb-4">
+        <button onclick="scrollLeft()" class="bg-white border rounded-full p-2 shadow hover:bg-yellow-400 transition-all duration-200">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <button onclick="scrollRight()" class="bg-white border rounded-full p-2 shadow hover:bg-yellow-400 transition-all duration-200">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+
+      <!-- Scrollable container -->
+      <div id="scrollContainer" class="flex space-x-6 overflow-x-auto scroll-smooth scrollbar-hide pb-1 px-1">
+        <!-- Dynamic category cards will be injected here -->
+      </div>
+    </div>
+  </div>
+</section>
+
+    
+   <!-- Make Your Order Section -->
+    <section class="px-6 py-10 bg-gradient-to-r from-orange-100 to-red-100">
+      <div class="text-center mb-6">
+        <h2 class="text-3xl font-bold text-red-600">🍽️ Make Your Order</h2>
+        <p class="text-gray-600">Choose your favorite food category</p>
+      </div>
+
+      <div id="orderCategories" class="hidden bg-white rounded-lg shadow-lg p-6 relative">
+        <button onclick="document.getElementById('orderCategories').classList.add('hidden')" class="absolute top-2 right-2 text-red-500 text-xl font-bold">×</button>
+        <div id="categoryGrid" class="grid grid-cols-2 sm:grid-cols-4 gap-6 place-items-center">
+          <!-- Categories will be loaded here -->
+        </div>
+      </div>
+
+      <div class="text-center mt-6">
+        <button id="showCategoriesBtn" class="bg-red-500 text-white px-6 py-3 rounded-full hover:bg-red-600 transition">
+          View Categories 🍕🍔🍗
+        </button>
+      </div>
+    </section>
+
+
+
+
+  <!-- FEATURED MENU CATEGORIES -->
+  <section aria-label="Top food categories menu" class="container mx-auto px-4 md:px-0 py-12">
+  <h2 class="text-sm font-semibold text-yellow-500 mb-8 text-center tracking-widest uppercase">Top Food</h2>
+  
+  <div id="featuredCategories" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
+    <!-- Cards will be injected here by JS -->
+  </div>
+</section>
+
+
+
+
+  <!-- POPULAR RESTAURANTS CARDS -->
+<section aria-label="Popular restaurants listings" class="container mx-auto px-4 md:px-0 py-12 text-center">
+  <h2 class="text-yellow-500 text-sm font-semibold tracking-wide uppercase mb-8">Popular Restaurant Items</h2>
+  <div class="flex flex-wrap justify-center gap-6 popular-restaurants"></div>
+</section>
+
+
+<!--  -->
+  <section aria-label="Super delicious deals food items" class="container mx-auto px-4 md:px-0 py-12 text-center">
+  <h2 class="text-yellow-500 text-sm font-semibold tracking-wide uppercase mb-8">Hot Deals</h2>
+  <div class="flex flex-wrap justify-center gap-6 hot-deals-section">
+    <!-- JS injects cards here -->
+  </div>
+</section>
+
+
+  <!-- HOW IT WORKS -->
+<section aria-label="How it works steps" class="bg-gray-900 py-16">
+  <div class="container mx-auto text-center mb-12">
+    <h2 class="text-blue-300 text-sm font-semibold uppercase tracking-widest">How It Works</h2>
+  </div>
+
+  <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 px-4 max-w-7xl">
+    
+    <!-- Step 1 -->
+    <div
+      class="bg-gray-800 p-6 rounded-xl shadow-lg transition duration-300 transform hover:scale-[1.03] hover:shadow-cyan-500/30">
+      <div class="flex justify-center mb-4">
+        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/a9aceff8-3b4d-4d18-8501-0469f2431d07.png"
+          alt="Place Your Order icon"
+          class="w-20 h-20 object-contain rounded-lg shadow-md bg-white p-2" />
+      </div>
+      <h3 class="text-white font-semibold text-lg text-center mb-1">Place Your Order</h3>
+      <p class="text-gray-400 text-sm text-center leading-relaxed">Browse and choose your favorite meals from our menu and place an order in seconds.</p>
+    </div>
+
+    <!-- Step 2 -->
+    <div
+      class="bg-gray-800 p-6 rounded-xl shadow-lg transition duration-300 transform hover:scale-[1.03] hover:shadow-cyan-500/30">
+      <div class="flex justify-center mb-4">
+        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/0538b596-cd6a-4537-96be-4ff790933e58.png"
+          alt="Receive Order icon"
+          class="w-20 h-20 object-contain rounded-lg shadow-md bg-white p-2" />
+      </div>
+      <h3 class="text-white font-semibold text-lg text-center mb-1">Receive Your Meal</h3>
+      <p class="text-gray-400 text-sm text-center leading-relaxed">Your order is prepared fresh and delivered safely to your door in no time.</p>
+    </div>
+
+    <!-- Step 3 -->
+    <div
+      class="bg-gray-800 p-6 rounded-xl shadow-lg transition duration-300 transform hover:scale-[1.03] hover:shadow-cyan-500/30">
+      <div class="flex justify-center mb-4">
+        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/2d8a0afa-0e4c-4597-8ec1-afda04fd006f.png"
+          alt="Cash On Delivery icon"
+          class="w-20 h-20 object-contain rounded-lg shadow-md bg-white p-2" />
+      </div>
+      <h3 class="text-white font-semibold text-lg text-center mb-1">Cash On Delivery</h3>
+      <p class="text-gray-400 text-sm text-center leading-relaxed">Pay comfortably after delivery. Fast, reliable, and completely secure process.</p>
+    </div>
+
+  </div>
+</section>
+
+
+  <!-- GET YOUR ORDER SECTION -->
+<section aria-label="Get your order section with scooter and mobile illustration"
+  class="container mx-auto grid md:grid-cols-2 py-20 px-4 md:px-8 items-center gap-12">
+
+  <!-- Left Text Content -->
+  <div>
+    <small class="text-yellow-500 font-semibold uppercase tracking-widest mb-3 block text-sm">
+      Dine In or Take Away
+    </small>
+
+    <h2 class="text-4xl font-extrabold text-gray-900 leading-tight mb-6 max-w-xl">
+      Get Your Order 24/7 Right At Your Doorsteps
+    </h2>
+
+    <p class="text-gray-600 leading-relaxed max-w-md mb-8">
+      Plant-based diets may offer an advantage over those that are not, especially regarding diabetes prevention and management. Studies show vegetarians have nearly half the risk of developing diabetes.
+    </p>
+
+    <!-- Call-to-Action Buttons -->
+    <div class="flex flex-wrap gap-4">
+      <a href="#items-categories">
+        <button
+          class="bg-yellow-400 hover:bg-yellow-500 text-black font-semibold px-6 py-3 rounded-md shadow-md transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-yellow-400">
+          Order Food
+        </button>
+      </a>
+      <a href="#he-ro">
+        <button
+          class="bg-gray-800 hover:bg-gray-700 text-white font-semibold px-6 py-3 rounded-md shadow-md transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-gray-700">
+          Search Now
+        </button>
+      </a>
+    </div>
+  </div>
+
+  <!-- Right Image Content -->
+  <div class="w-full">
+    <img
+      src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/bf4991e8-7372-49eb-b744-7c09e191a978.png"
+      alt="Delivery scooter and mobile app illustration"
+      class="w-full max-w-lg mx-auto rounded-xl shadow-2xl transition-transform duration-500 hover:scale-105"
+      onerror="this.src='https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/c6831ef4-24be-4b97-b128-02c984d727d9.png'" />
+  </div>
+</section>
+
+
+<!-- TEAM MEMBERS -->
+<section aria-label="Team members section" class="container mx-auto px-4 md:px-0 py-20">
+  <h2 class="text-4xl font-extrabold text-gray-800 mb-12 text-center">Meet Our Best Team</h2>
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 team-members">
+    <!-- Injected dynamically -->
+  </div>
+</section>
+
+
+
+  <!-- LATEST TIPS & TRICKS -->
+<section aria-label="Latest tips and tricks blog posts" class="bg-white py-20 px-4 md:px-0">
+  <div class="max-w-7xl mx-auto">
+    <small class="text-yellow-500 font-semibold uppercase tracking-wider mb-2 block text-center text-sm">New Arrivals</small>
+    <h2 class="text-4xl font-extrabold text-center text-gray-800 mb-12">Latest Tips and Tricks</h2>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 blog-posts">
+      <!-- Blog cards will be injected here -->
+    </div>
+  </div>
+</section>
+
+ <!-- Floating Cart Icon -->
+<button id="cartToggle" class="fixed bottom-6 right-16 bg-yellow-400 hover:bg-yellow-500 text-black p-3 rounded-full shadow-lg z-50">
+  🛒
+</button>
+
+<!-- Cart Panel -->
+<div id="cartPanel" class="fixed bottom-20 right-6 w-80 max-w-full bg-white shadow-lg rounded-lg border p-4 hidden z-50">
+  <h3 class="text-lg font-bold mb-4">Your Cart</h3>
+  <div id="cartItems" class="space-y-3 max-h-60 overflow-y-auto"></div>
+  <div class="mt-4 border-t pt-3 text-right">
+    <p class="text-md font-semibold">Total: <span id="cartTotal">₹0</span></p>
+      <button id="checkoutBtn" class="mt-3 inline-block bg-yellow-400 hover:bg-yellow-500 text-black font-bold px-4 py-2 rounded shadow">
+        Checkout
+      </button>  
+      <!-- <button id="clearCartBtn" class="mt-2 w-full bg-red-500 hover:bg-red-600 text-white text-sm font-semibold py-2 rounded shadow">
+        Clear Cart
+      </button> -->
+  </div>
+</div>
+
+
+
+  <!-- FOOTER -->
+  <footer class="bg-gray-100 mt-20 py-12 border-t border-gray-300">
+  <div class="container mx-auto px-4 md:px-0 grid grid-cols-1 md:grid-cols-4 gap-10">
+    
+    <!-- Brand Info -->
+    <div>
+      <a href="#">
+        <img src="assets/logo.jpg" alt="Website Logo"
+          class="h-12 w-auto rounded-lg shadow-md border" />
+      </a><br>
+      <p class="text-sm text-gray-700 mb-4 leading-relaxed">
+        Focus on quality ingredients — organic meat, sustainable farming, and ethical preparation.
+      </p>
+      <address class="not-italic text-sm text-gray-600 leading-6 mb-4">
+        <strong>Phone:</strong> +92 300-400-2333 <br />
+        <strong>Email:</strong> restaurant@gmail.com
+      </address>
+
+      <!-- Social Icons -->
+      <div class="flex items-center space-x-4">
+        <a href="#" aria-label="Facebook" class="text-gray-600 hover:text-yellow-500 transition">
+          <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M22 12.073c0-5.522-4.477-10-10-10s-10 4.478-10 10c0 4.991 3.657 9.128 8.438 9.879v-6.987h-2.54v-2.892h2.54v-2.203c0-2.507 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.47h-1.26c-1.243 0-1.63.772-1.63 1.562v1.865h2.773l-.443 2.892h-2.33v6.987c4.781-.751 8.438-4.888 8.438-9.879z"/></svg>
+        </a>
+        <a href="#" aria-label="Twitter" class="text-gray-600 hover:text-yellow-500 transition">
+          <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 01-3.14 1.53A4.48 4.48 0 0012 8v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg>
+        </a>
+        <a href="#" aria-label="LinkedIn" class="text-gray-600 hover:text-yellow-500 transition">
+          <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-4 0v7h-4v-7a6 6 0 016-6zM2 9h4v12H2zM4 4a2 2 0 110 4 2 2 0 010-4z"/></svg>
+        </a>
+        <a href="#" aria-label="Google Plus" class="text-gray-600 hover:text-yellow-500 transition">
+          <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M21.8 10.8c0 -.8 -.6-1.4 -1.4-1.4h-3.4v1.6h2.2c-.1 3.6-4 4.6-6.3 4.1-3-.6-4.3-3-4.3-5.5 0-2.5 1.7-5.1 5.1-5.1 1.7 0 3 .7 3.7 1.7l2.6-2.5c-.6-1-2-2.1-4.9-2.1-5.3 0-9.3 4.2-9.3 9.3s4.4 8.4 9.8 8.4c5.7 0 9.5-3.9 9.5-9.7z"/></svg>
+        </a>
+        <a href="#" aria-label="YouTube" class="text-gray-600 hover:text-yellow-500 transition">
+          <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M10 15l5-3-5-3v6zM21.8 7.3c-.2-.9-1-1.7-1.8-1.9-1.6-.4-8-.4-8-.4s-6.4 0-8 .4c-.8.2-1.6 1-1.8 1.9-.4 1.6-.4 4.8-.4 4.8s0 3.2.4 4.8c.2.9 1 1.7 1.8 1.9 1.6.4 8 .4 8 .4s6.4 0 8-.4c.8-.2 1.6-1 1.8-1.9.4-1.6.4-4.8.4-4.8s0-3.2-.4-4.8z"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Footer Bottom -->
+    <div class="text-sm text-gray-600 self-end md:self-center md:col-span-3 text-center md:text-right">
+      © 2025 <strong class="text-yellow-500">E<sup>2</sup>  Eat & Enjoy</strong> — All Rights Reserved
+    </div>
+  </div>
+</footer>
+
+
+  <!-- SCROLL TO TOP BUTTON -->
+  <button id="scrollUpBtn"
+    class="fixed right-6 bottom-6 bg-yellow-400 hover:bg-yellow-500 text-black p-3 rounded-full shadow-lg cursor-pointer hidden"
+    aria-label="Scroll to top" title="Scroll to top">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+      stroke-width="2" aria-hidden="true">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
+    </svg>
+  </button>
+
+    <script src="cart.js"></script>
+
+</body>
+</html>
